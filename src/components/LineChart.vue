@@ -3,7 +3,22 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts'
+import * as echarts from 'echarts/core'
+import { LineChart } from 'echarts/charts'
+import {
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+} from 'echarts/components'
+import { CanvasRenderer } from 'echarts/renderers'
+
+echarts.use([
+  LineChart,
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+  CanvasRenderer,
+])
 
 const { seriesData } = defineProps<{
   seriesData: Record<string, (number | null)[]>
@@ -16,16 +31,15 @@ const xAxisData = computed(() => {
   return Array.from({ length: maxLength }, (_, index) => `第 ${index + 1} 回合`)
 })
 
-const series = computed(
-  () =>
-    Object.entries(seriesData).map(([key, value]) => {
-      return {
-        name: key,
-        type: 'line',
-        smooth: true,
-        data: value,
-      } as echarts.LineSeriesOption
-    }) as echarts.LineSeriesOption[]
+const series = computed(() =>
+  Object.entries(seriesData).map(([key, value]) => {
+    return {
+      name: key,
+      type: 'line',
+      smooth: true,
+      data: value,
+    }
+  })
 )
 
 const legend = computed(() => Object.keys(seriesData))
@@ -37,7 +51,7 @@ function initChart() {
   if (chartRef.value && xAxisData.value && series.value && legend.value) {
     lineChart = echarts.init(chartRef.value, 'dark') // 暗黑模式，也可自行定義主題
 
-    const option: echarts.EChartsOption = {
+    const option = {
       // title: {
       // text: 'XXX 專案',
       // },
