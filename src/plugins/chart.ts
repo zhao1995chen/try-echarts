@@ -14,12 +14,19 @@ import {
   DatasetComponentOption,
   TransformComponent
 } from 'echarts/components'
-import { BarChart, BarSeriesOption, LineChart, LineSeriesOption } from 'echarts/charts'
+import { 
+  BarChart, 
+  BarSeriesOption, 
+  LineChart, 
+  LineSeriesOption, 
+  PieChart, 
+  PieSeriesOption } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
 
 type ECOption = ComposeOption<
 | BarSeriesOption
 | LineSeriesOption
+| PieSeriesOption
 | TitleComponentOption
 | ToolboxComponentOption
 | TooltipComponentOption
@@ -38,6 +45,7 @@ use([
   TransformComponent,
   LineChart,
   BarChart,
+  PieChart,
   CanvasRenderer
 ])
 

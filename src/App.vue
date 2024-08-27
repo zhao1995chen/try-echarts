@@ -4,6 +4,8 @@
   <BarChart :dataset-data="barDatasetData" />
   <h2>使用封裝後的 useChart</h2>
   <Chart :option-data="chartOptionData" />
+  <Chart :option-data="pieOptionData" />
+  <Chart :option-data="pieOptionData2" />
 </template>
 
 <script setup lang="ts">
@@ -41,6 +43,89 @@ const chartOptionData = {
     ],
   },
   series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
+}
+
+const pieOptionData = {
+  title: {
+    text: '銷售分佈',
+    left: 'center',
+  },
+  tooltip: {
+    trigger: 'item',
+  },
+  legend: {
+    orient: 'vertical',
+    right: 'right',
+  },
+  dataset: {
+    source: [
+      ['類別', '銷售額'],
+      ['電子產品', 1048],
+      ['服裝', 735],
+      ['雜貨', 580],
+      ['書籍', 484],
+      ['其他', 300],
+    ],
+  },
+  series: [
+    {
+      name: '銷售額',
+      type: 'pie',
+      radius: '50%', // 配置陣列可顯示為圓環圖
+      encode: {
+        itemName: '類別', // 將 '類別' 列映射到每個扇形的名稱
+        value: '銷售額', // 將 '銷售額' 列映射到每個扇形的數值
+      },
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)',
+        },
+      },
+    },
+  ],
+}
+
+const pieOptionData2 = {
+  title: {
+    text: '成績人數',
+    left: 'center',
+  },
+  legend: {
+    orient: 'vertical',
+    x: 'left',
+    data: ['A', 'B', 'C', 'D', 'E'],
+  },
+  tooltip: {},
+  series: [
+    {
+      type: 'pie',
+      radius: ['30%', '60%'],
+      avoidLabelOverlap: false,
+      label: {
+        show: false,
+        position: 'center',
+      },
+      labelLine: {
+        show: false,
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: '30',
+          fontWeight: 'bold',
+        },
+      },
+      data: [
+        { value: 335, name: 'A' },
+        { value: 310, name: 'B' },
+        { value: 234, name: 'C' },
+        { value: 135, name: 'D' },
+        { value: 1548, name: 'E' },
+      ],
+    },
+  ],
 }
 </script>
 
