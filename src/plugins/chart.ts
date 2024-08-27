@@ -20,13 +20,17 @@ import {
   LineChart, 
   LineSeriesOption, 
   PieChart, 
-  PieSeriesOption } from 'echarts/charts'
+  PieSeriesOption,
+  RadarChart,
+  RadarSeriesOption
+} from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
 
 type ECOption = ComposeOption<
 | BarSeriesOption
 | LineSeriesOption
 | PieSeriesOption
+| RadarSeriesOption
 | TitleComponentOption
 | ToolboxComponentOption
 | TooltipComponentOption
@@ -46,6 +50,7 @@ use([
   LineChart,
   BarChart,
   PieChart,
+  RadarChart,
   CanvasRenderer
 ])
 
