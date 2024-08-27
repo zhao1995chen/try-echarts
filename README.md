@@ -105,6 +105,86 @@ option = {
 }
 ```
 
+## 常用 API
+
+### 物件實體化
+
+```ts
+echarts.init(dom?: HTMLDivElement|HTMLCanvasElement, theme?: Object|string, opts?: {
+  devicePixelRatio?: number,
+  renderer?: string,
+  useDirtyRect?: boolean,     // `5.0.0`
+  useCoarsePointer?: boolean, // `5.4.0`
+  pointerSize?: number,       // `5.4.0`
+  ssr?: boolean,              // `5.3.0`
+  width?: number|string,
+  height?: number|string,
+  locale?: string             // `5.0.0`
+}) => ECharts
+```
+
+| Attrs   | Details       |
+| ------- | ------------- |
+| `dom`   | 綁定 DOM 元素 |
+| `theme` | 給定主題      |
+| `opts`  | 配置參數      |
+
+> 如果 DOM 元素是隱藏的，ECharts 會獲取不到容器寬高初始化失敗，要避免要給定 DOM 元素的 `style.width` 及 `style.height`，或是在 DOM 元素顯示後呼叫 `echartsInstance.resize` 調整。
+
+> 若 DOM 元素是在 `resize` 才給寬高，ref 的父元素要有明確的寬高，ECharts 會獲取不到容器寬高初始化失敗。
+
+### 配置參數
+
+```ts
+echartsInstance.setOption(option: Object, notMerge?: boolean, lazyUpdate?: boolean)
+// or
+echartsInstance.setOption(option: Object, opts?: {
+  notMerge?: boolean;
+  replaceMerge?: string | string[];
+  lazyUpdate?: boolean;
+  silent?: boolean;
+})
+```
+
+| Attrs          | Details                                                                                             |
+| -------------- | --------------------------------------------------------------------------------------------------- |
+| `notMerge`     | 若 `false` 會跟之前設置的 `option` 進行合併，若 `true` 原本的組件會被刪除，再根據新 option 創建組件 |
+| `replaceMerge` | 可指定一個或多個組件進行刪除                                                                        |
+| `lazyUpdate`   | 若 `true` 會在下一個 animation frame 才更新                                                         |
+| `silent`       | 若 `false` 阻止調用 `setOption` 時的拋出事件，若 `true` 會拋出事件                                  |
+
+合併規則中有分普通合併及替換合併，官方文件中有進行描述，若後續有實作再補充。
+
+### 容器大小配置
+
+```ts
+echartsInstance.resize(opts?: {
+  width?: number|string,
+  height?: number|string,
+  silent?: boolean,
+  animation?: {
+    duration?: number
+    easing?: string
+  }
+}) => ECharts
+```
+
+常用於容器本身大小改變時，圖表也進行大小改變。
+
+> 若頁面大小沒有發生改變，`echartsInstance.resize` 不會被觸發，可以利用 `ResizeObserver` API 進行監聽觸發。
+
+#### 圖表物件銷毀
+
+```ts
+echartsInstance.dispose()
+```
+
+銷毀後要使用 `echarts.init` 再次初始化。
+
+## 封裝
+
+隨著使用的圖表越來越多，每次都要在新增的組件中進行大致相同的按需引入，所以進行封裝，之後無論使用的圖表類型，都是使用 `Chart.vue` 組件，後續如果有新的圖表需求在 `plugins/chart.ts` 中新增引用後不用再對 `Chart.vue` 進行調整即可直接使用。
+
 # Vue 3 + TypeScript + Vite
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
