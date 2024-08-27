@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartRef2" class="chart-container"></div>
+  <div ref="chartRef" class="chart-container"></div>
 </template>
 
 <script setup lang="ts">
@@ -10,6 +10,7 @@ import {
   TooltipComponent,
   LegendComponent,
   DatasetComponent,
+  DatasetComponentOption,
 } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 
@@ -22,25 +23,21 @@ echarts.use([
   CanvasRenderer,
 ])
 
-const chartRef2 = ref<HTMLDivElement | null>(null)
+const { datasetData } = defineProps<{
+  datasetData: DatasetComponentOption
+}>()
+
+const chartRef = ref<HTMLDivElement | null>(null)
 let barChart: echarts.ECharts | null = null
 
 function initChart() {
-  if (chartRef2.value) {
-    barChart = echarts.init(chartRef2.value) // 暗黑模式，也可自行定義主題
+  if (chartRef.value) {
+    barChart = echarts.init(chartRef.value) // 暗黑模式，也可自行定義主題
 
     const option = {
       legend: {},
       tooltip: {},
-      dataset: {
-        source: [
-          ['product', '2015', '2016', '2017'],
-          ['Matcha Latte', 43.3, 85.8, 93.7],
-          ['Milk Tea', 83.1, 73.4, 55.1],
-          ['Cheese Cocoa', 86.4, 65.2, 82.5],
-          ['Walnut Brownie', 72.4, 53.9, 39.1],
-        ],
-      },
+      dataset: datasetData,
       xAxis: {
         type: 'category',
       },
@@ -51,7 +48,7 @@ function initChart() {
           type: 'bar',
           // 柱條樣式透過 itemStyle 設定
           itemStyle: {
-            barBorderRadius: 10,
+            borderRadius: 10,
             borderWidth: 3,
             borderType: 'dashed',
             borderColor: '#73c0de',
@@ -81,10 +78,8 @@ function resizeChart() {
 }
 
 onMounted(() => {
-  nextTick(() => {
-    initChart()
-    window.addEventListener('resize', resizeChart)
-  })
+  initChart()
+  window.addEventListener('resize', resizeChart)
 })
 
 onBeforeUnmount(() => {
