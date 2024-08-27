@@ -1,5 +1,6 @@
 <template>
   <LineChart :series-data="seriesData" />
+  <BarChart />
 </template>
 
 <script setup lang="ts">
@@ -15,5 +16,6 @@ const seriesData = {
 #app {
   width: 100vw;
   height: 100vh;
+  box-sizing: border-box;
 }
 </style>
