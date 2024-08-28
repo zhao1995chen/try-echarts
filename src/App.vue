@@ -27,7 +27,7 @@ const barDatasetData = {
   ],
 }
 
-const chartOptionData = {
+const chartOptionData: ECOption = {
   legend: {},
   tooltip: {},
   xAxis: {
@@ -46,7 +46,7 @@ const chartOptionData = {
   series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
 }
 
-const pieOptionData = {
+const pieOptionData: ECOption = {
   title: {
     text: '銷售分佈',
     left: 'center',
@@ -88,14 +88,14 @@ const pieOptionData = {
   ],
 }
 
-const pieOptionData2 = {
+const pieOptionData2: ECOption = {
   title: {
     text: '成績人數',
     left: 'center',
   },
   legend: {
     orient: 'vertical',
-    x: 'left',
+    left: 'left',
     data: ['A', 'B', 'C', 'D', 'E'],
   },
   tooltip: {},
@@ -234,7 +234,7 @@ const lineStyle = {
   width: 1,
   opacity: 0.5,
 }
-const radarOptionData = {
+const radarOptionData: ECOption = {
   backgroundColor: '#161627',
   title: {
     text: 'AQI - Radar',

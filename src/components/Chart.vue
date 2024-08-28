@@ -2,24 +2,26 @@
   <div ref="chartRef" class="chart-container"></div>
 </template>
 <script setup lang="ts">
-import useChart from '../plugins/chart'
-
 const { optionData } = defineProps<{
-  optionData: any
+  optionData: ECOption
 }>()
 
 const chartRef = ref<HTMLDivElement>(null)
-let chart
+let chart: Chart
 
 onMounted(() => {
   if (!chartRef.value) return
-  chart = useChart(chartRef.value)
+
+  // 初始化後可以選擇用 ECharts 的 methods 或 chart.ts 也有封裝過的方法
+  const { init } = useChart()
+
+  chart = init(chartRef.value)
   chart.setOption(optionData)
-  window.addEventListener('resize', chart.resize)
+  window.addEventListener('resize', () => chart.resize())
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', chart.resize)
+  window.removeEventListener('resize', () => chart.resize())
   chart.dispose()
 })
 </script>

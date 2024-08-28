@@ -16,6 +16,9 @@ dependencies:
     version: 3.4.38(typescript@5.5.4)
 
 devDependencies:
+  '@types/node':
+    specifier: ^22.5.1
+    version: 22.5.1
   '@vitejs/plugin-vue':
     specifier: ^5.1.2
     version: 5.1.2(vite@5.4.1)(vue@3.4.38)
@@ -30,7 +33,7 @@ devDependencies:
     version: 0.27.4(vue@3.4.38)
   vite:
     specifier: ^5.4.1
-    version: 5.4.1
+    version: 5.4.1(@types/node@22.5.1)
   vue-tsc:
     specifier: ^2.0.29
     version: 2.0.29(typescript@5.5.4)
@@ -441,6 +444,12 @@ packages:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: true
 
+  /@types/node@22.5.1:
+    resolution: {integrity: sha512-KkHsxej0j9IW1KKOOAA/XBA0z08UFSrRQHErzEfA3Vgq57eXIMYboIlHJuYIfd+lwCQjtKqUu3UnmKbtUc9yRw==}
+    dependencies:
+      undici-types: 6.19.8
+    dev: true
+
   /@vitejs/plugin-vue@5.1.2(vite@5.4.1)(vue@3.4.38):
     resolution: {integrity: sha512-nY9IwH12qeiJqumTCLJLE7IiNx7HZ39cbHaysEUd+Myvbz9KAqd2yq+U01Kab1R/H1BmiyM2ShTYlNH32Fzo3A==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -448,7 +457,7 @@ packages:
       vite: ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.4.1
+      vite: 5.4.1(@types/node@22.5.1)
       vue: 3.4.38(typescript@5.5.4)
     dev: true
 
@@ -968,6 +977,10 @@ packages:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
     dev: true
 
+  /undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+    dev: true
+
   /unimport@3.10.0:
     resolution: {integrity: sha512-/UvKRfWx3mNDWwWQhR62HsoM3wxHwYdTq8ellZzMOHnnw4Dp8tovgthyW7DjTrbjDL+i4idOp06voz2VKlvrLw==}
     dependencies:
@@ -1051,7 +1064,7 @@ packages:
       webpack-virtual-modules: 0.6.2
     dev: true
 
-  /vite@5.4.1:
+  /vite@5.4.1(@types/node@22.5.1):
     resolution: {integrity: sha512-1oE6yuNXssjrZdblI9AfBbHCC41nnyoVoEZxQnID6yvQZAFBzxxkqoFLtHUMkYunL8hwOLEjgTuxpkRxvba3kA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -1082,6 +1095,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 22.5.1
       esbuild: 0.21.5
       postcss: 8.4.41
       rollup: 4.21.0
